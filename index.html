@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "Kelly Slab", serif;
+            transition: .5s ease-in-out;
+            scroll-behavior: smooth;
+        }
+        body{
+            background: linear-gradient(rgb(230, 9, 9),rgb(254, 9, 9));
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .header{
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            padding: 1.3rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 10px 0px 50px #000;
+        }
+        .header::before{
+            content: "";
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(50px);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -1;
+        }
+        .logo{
+            font-size: 2.5rem;
+            color: #fff;
+            font-family: "Spicy Rice", serif;
+            text-decoration: none;
+        }
+        span{
+            color: rgba(0, 0, 0, 0.2);
+            font-weight: 900;
+        }
+        .navbar a{
+            font-size: 1.3rem;
+            color: #fff;
+            font-weight: 400;
+            text-decoration: none;
+            margin-left: 2.5rem;
+        }
+        .icons{
+            color: #fff;
+            font-size: 2.5rem;
+            position: absolute;
+            right: 5%;
+            display: none;
+        }
+        #check{
+            display: none;
+        }
+
+
+        /* BREAK POINTS */
+
+        @media (max-width:990px) {
+            .header{
+                padding: 1.3rem 5%;
+            }
+        }
+        @media (max-width: 760px) {
+            .icons{
+                display: block;
+            }
+            #close-menu{
+                display: none;
+            }
+            #check:checked~.navbar{
+                height: 17.7rem;
+            }
+            #check:checked~.icons #open-menu{
+                display: none;
+            }
+            #check:checked~.icons #close-menu{
+                display: block;
+            }
+            .navbar{
+                background: rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(50px);
+                position: absolute;
+                width: 100%;
+                height: 0;
+                top: 100%;
+                left: 0;
+                overflow: hidden;
+                transition: .9s ease;
+            }
+            .navbar a{
+                display: block;
+                text-align: center;
+                margin: 1.5rem 0;
+            }
+        }
+
+        /* end of header */
+
+        /* start of home */
+        #home{  
+                margin-bottom: 15%;
+                margin-top: 15%;
+                width: 100%;
+                height: 100vh;
+                padding: 2rem 10%; 
+            }
+        .container{ 
+                display: flex;
+                justify-content: space-between;
+                align-items: center;  
+            }
+        .img-content{
+                padding: 5% 10%;
+            }
+        .img-content h1{
+                color: #fff;
+                letter-spacing: 10px;
+                margin-bottom: 20px; 
+            }
+        .img-content p{
+                word-spacing: 10px;
+                color: #fff;
+                margin-bottom: 20px;
+        }
+        .img-content .btn{
+            padding: 10px 15px;
+            border: 1px solid #fff;
+            color: #fff;
+            background: transparent;
+            border-radius: 10px;
+        }
+        .img-content .btn:hover{
+            color: rgb(230, 9, 9);
+            background: #fff;
+            border: none;
+            box-shadow: 1px 1px 10px #fff;
+        }
+
+        /* BREAK POINTS */
+
+        @media (max-width:1100px) {
+            #home{
+                margin-top: 15%;
+                width: 100%;
+                height: 100vh;
+                padding: 2rem 5%;
+            }
+            .container{
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+            .image{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .img-content{
+                text-align: center;
+                padding: 5% 5%;
+            }
+        }
+
+        @media (max-width:720px) {
+            #home{
+                margin-top: 25%;
+                width: 100%;
+                height: 100vh;
+                padding: 2rem 2%;
+            }
+            .container{
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+            .image{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .image img{
+                width: 80%;
+                height: 80%;
+            }
+            .img-content{
+                text-align: center;
+                padding: 5% 5%;
+            }
+        }
+
+        /* end of home */
+
+
+        /* start of gallery */
+        #gallery{
+            margin-top: 10%;
+            margin-bottom: 5%;
+        }
+        .hd2{
+            color: white;
+            font-size: 2.5rem;
+            text-align: center;
+            letter-spacing: 10px;
+            margin-bottom: 20px;
+        }
+        .gall{
+            width: 80%;
+            height: 100%;
+            display: flex;
+            margin: 5% auto 0;
+            box-sizing: border-box;
+        }
+        .image-box{
+            margin: 0 1%;
+            flex-grow: 1;
+            flex-basis: 0;
+            transition: all .5s ease;
+            border-radius: 20px;
+        }
+        .image-box img{
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: all .5s ease;
+            border-radius: 20px;
+        }
+        .image-box:hover{
+            flex-basis: 50%;
+        }
+        .active{
+            flex-basis: 50%;
+        }
+        .gall:hover .active{
+            flex-basis: 0;
+        }
+        .image-box:nth-child(1):hover{
+            flex-basis: 50%;
+        }
+
+
+
+        @media (max-width:1200px) {
+
+            #gallery{
+                margin-top: 20%;
+            
+            }
+
+            .image-box img{
+                width: 100%;
+                height: 400px;
+                object-fit: cover;
+                transition: all .5s ease;
+                border-radius: 20px;
+            }
+        }
+
+
+        @media (max-width:720px) {
+
+            #gallery{
+                margin-top: 30%;
+            
+            }
+            .hd2{
+                color: white;
+                font-size: 1.5rem;
+                text-align: center;
+                letter-spacing: 10px;
+                margin-bottom: 20px;
+            }
+            .image-box img{
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+                transition: all .5s ease;
+                border-radius: 20px;
+            }
+        }
+
+        /* end of gallery */
+
+        /* start of blog */
+        #blogs{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 10% 0; 
+        }
+        .card{
+            width: 320px;
+            background-color: #fff;
+            border-radius: 5%;
+            overflow: hidden;
+            margin: 20px;
+            box-shadow: 10px 10px 50px rgba(8, 8, 8, 0.791);
+            transition: .6s ease-in-out;
+        }
+        .card:hover{
+            transform: scale(1.2);
+            backdrop-filter: blur(50px);
+        }
+        .card img{
+            width: 100%;
+            height: 200px;
+        }
+        .card-content{
+            padding: 10px;
+        }
+        .card-content h2{
+            font-size: 20px;
+            color: rgb(230, 9, 9);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .card-content p{
+            color: rgb(235, 101, 101);
+            font-size: 12px;
+            line-height: 1.3;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .card-content .btn{
+            display: inline-block;
+            padding: 5px 10px;
+            background: transparent;
+            border: 1px solid rgb(230, 9, 9);
+            border-radius: 10px;
+            color: rgb(230, 9, 9);
+            text-decoration: none;
+            margin-top: 5%;
+            margin-bottom: 5%;
+            transition: .5s ease;
+        }
+        .card-content .btn:hover{
+            background: rgb(230, 9, 9);
+            color: white;
+        }
+        /* end of blog */
+
+        /* start of portfolio */
+        #portfolio{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .hd4{
+            font-size: 50px;
+            color: white;
+        }
+        .content-box{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+            width: 1000px;
+        }
+        .cards{
+            min-height: 220px;
+            width: 320px;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(222, 10, 10);
+            align-items: center;
+            margin: 10px 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        }
+        .cards .hd5{
+            font-size: 25px;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .cards .ph1{
+            font-size: 15px;
+            color: antiquewhite;
+            text-align: center;   
+        }
+        .cards:nth-child(1):hover{
+            background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.8)),url(../deploy/11.jpeg);
+            background-size: cover;
+        }
+        .cards:nth-child(2):hover{
+            background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.8)),url(../deploy/12.jpeg);
+            background-size: cover;
+        }
+        .cards:nth-child(3):hover{
+            background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.8)),url(../deploy/13.jpeg);
+            background-size: cover;
+        }
+        .cards:nth-child(4):hover{
+            background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.8)),url(../deploy/14.jpeg);
+            background-size: cover;
+        }
+        .cards:nth-child(5):hover{
+            background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.8)),url(../deploy/15.jpeg);
+            background-size: cover;
+        }
+        .cards:nth-child(6):hover{
+            background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.8)),url(../deploy/16.jpeg);
+            background-size: cover;
+        }
+        /* end of services */
+
+        /* start of contact */
+
+        #contact{
+            margin-bottom: 10%;
+            margin-top: 10%;
+            padding: 14px 10%;
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: repeat(2,2fr);
+            align-items: center;
+            grid-gap: 6rem;
+        }
+        .contact-img img{
+            max-width: 100%;
+            width: 750px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 10px 10px 50px #000;
+        }
+        .contact-form .hd6{
+            font-size: 50px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        span{
+            color: rgb(143, 8, 8);
+        }
+        .contact-form p{
+            color: #fff;
+            letter-spacing: 1px;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+        .contact-form form{
+            position: relative;
+        }
+        .contact-form form input,
+        form textarea{
+            width: 100%;
+            padding: 12px;
+            outline: none;
+            border: none;
+            background-color: #fff;
+            color: rgb(222, 10, 10);
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+        .contact-form form textarea{
+            resize: none;
+            height: 200px;
+        }
+        .contact-form form .btn{
+            display: inline-block;
+            width: 200px;
+            background: #fff;
+            border: 1px solid #fff;
+            color: rgb(222, 10, 10);
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-left: 25%;
+        }
+        .contact-form form .btn:hover{
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+        }
+
+
+
+    </style>
+
+
+
+
+
+
+
+    <!..... wow.js.....>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+
+    <!..... custom css link.....>
+
+
+    <!..... font spicy rice cdn ..>
+    <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&family=Spicy+Rice&display=swap" rel="stylesheet">
+
+    <!..... font kelly slab ......>
+    <link href="https://fonts.googleapis.com/css2?family=Kelly+Slab&family=Spicy+Rice&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/all.min.css">
+
+    <link rel="stylesheet" href="../css/fontawesome.min.css">
+   
+
+</head>
+<body>
+    <header class="header">
+        <a href="#home" class="logo">Mr.<span>Cake</span></a>
+
+        <input type="checkbox" id="check">
+
+        <label for="check" class="icons">
+            
+            <i class="fa-solid fa-bars" id="open-menu"></i>
+            <i class="fa-solid fa-xmark" id="close-menu"></i>
+        </label>
+
+        <nav class="navbar">
+            <a href="#home">home</a>
+            <a href="#gallery">gallery</a>
+            <a href="#blogs">blogs</a>
+            <a href="#services">services</a>
+            <a href="#contact">contact</a>
+        </nav>
+    </header>
+
+    <!..... end of header .....>
+
+    <!..... start of home .....>
+
+    <section id="home">
+        <div class="container">
+            <div class="image animate__animated animate__fadeInLeft">
+                <img src="../deploy/logo.png" alt="">
+            </div>
+            <div class="img-content animate__animated animate__fadeInRight">
+                <h1>WE WORK ON NAME NOT ON FAME</h1>
+                <p>This perfectly moist red velvet cake is the ultimate celebration cake. <br>
+                Layered with creamy, satiny-smooth cream cheese frosting, each bite tastes like a dream!
+            </p>
+            <button class="btn">ORDER NOW</button>
+            </div>
+        </div>
+    </section>
+
+    <!...... end of home ........>
+
+    <!.....start of gallery ..........>
+
+    <section id="gallery">
+        <h1 class="hd2 animate__animated animate__bounceIn">OUR GALLERY</h1>
+        <div class="gall animate__animated animate__flip">
+            <div class="image-box">
+                <img src="../deploy/15.jpeg" alt="">
+            </div>
+            <div class="image-box">
+                <img src="../deploy/16.jpeg" alt="">
+            </div>
+            <div class="image-box">
+                <img src="../deploy/17.jpeg" alt="">
+            </div>
+            <div class="image-box">
+                <img src="../deploy/14.jpeg" alt="">
+            </div>
+            <div class="image-box">
+                <img src="../deploy/13.jpeg" alt="">
+            </div>
+            <div class="image-box">
+                <img src="../deploy/12.jpeg" alt="">
+            </div>
+            <div class="image-box">
+                <img src="../deploy/11.jpeg" alt="">
+            </div>
+
+    </section>    
+    <!...... end of gallery .......>
+
+   <!........ start of blogs .....>
+   <section id="blogs">
+    <div class="card">
+        <img src="../deploy/4.jpeg" alt="">
+        <div class="card-content">
+            <h2>Sally's Baking Addiction</h2>
+                <p>A vibrant blog filled with approachable baking recipes, tips, and tutorials. 
+                    Sally focuses on both beginner-friendly and advanced techniques. 
+                </p>
+            <a href="#" class="btn">Read More</a>
+        </div>
+    </div>
+    <div class="card">
+        <img src="../deploy/3.jpeg" alt="">
+        <div class="card-content">
+            <h2>Card 2</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Quibusdam repellendus, pariatur possimus 
+                </p>
+            <a href="#" class="btn">Read More</a>
+        </div>
+    </div>
+    <div class="card">
+        <img src="../deploy/2.jpeg" alt="">
+        <div class="card-content">
+            <h2>Card 3</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Quibusdam repellendus, pariatur possimus 
+                </p>
+            <a href="#" class="btn">Read More</a>
+        </div>
+    </div>
+    <div class="card">
+        <img src="../deploy/1.jpeg" alt="">
+        <div class="card-content">
+            <h2>Card 4</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Quibusdam repellendus, pariatur possimus 
+                </p>
+            <a href="#" class="btn">Read More</a>
+        </div>
+    </div>
+   </section>
+   <!...... end of blogs .......>
+
+   <!........ start of portfolio .....>
+   
+    <section id="portfolio">
+        <h2 class="hd4">Our portfolio</h2>
+            <div class="content-box">
+                <div class="cards">
+                    <h3 class="hd5">Custom Creations</h3>
+                    <p class="ph1">Pumpkin Pie in FallLemon Bars for Spring Holiday Sugar Cookies
+                    </p>
+                </div>
+                <div class="cards">
+                    <h3 class="hd5">Intermediate Skills</h3>
+                     <p class="ph1">Pumpkin Pie in FallLemon Bars for Spring Holiday Sugar Cookies
+                    </p>
+                </div>
+                <div class="cards">
+                    <h3 class="hd5">Beginner-Friendly</h3>
+                    <p class="ph1">Pumpkin Pie in FallLemon Bars for Spring Holiday Sugar Cookies
+                    </p>
+                </div>
+                <div class="cards">
+                    <h3 class="hd5">Advanced Masterpieces</h3>
+                    <p class="ph1">Pumpkin Pie in FallLemon Bars for Spring Holiday Sugar Cookies
+                    </p>
+                </div>
+                <div class="cards">
+                    <h3 class="hd5">Custom Creations</h3>
+                    <p class="ph1">Pumpkin Pie in FallLemon Bars for Spring Holiday Sugar Cookies
+                    </p>
+                </div>
+                <div class="cards">
+                    <h3 class="hd5">Seasonal Bakers</h3>
+                    <p class="ph1">Pumpkin Pie in FallLemon Bars for Spring Holiday Sugar Cookies
+                    </p>
+                </div>
+            </div>
+    </section>
+
+   <!...... end of portfolio .......>
+
+   <!........ start of contact .....>
+
+   <section id="contact">
+    <div class="contact-form">
+        <h1 class="hd6">Contact <span>Us</span></h1>
+        <p>We’d Love to Hear From You!
+            Whether you have a question 
+            about our recipes, need help
+            perfecting your bake, 
+            or just want to share your
+            baking success story, 
+            we're here to help.
+        </p>
+             
+        
+        <form action="">
+            <input type="text" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="E-mail" required>
+            <input type="text" placeholder="write a subject" required>
+            <textarea name="" id="" cols="30" rows="10" placeholder="Your Message" required>
+            </textarea>
+            <input type="submit" name="submit" value="submit" class="btn">
+        </form>
+    </div>
+
+    <div class="contact-img">
+        <img src="../deploy/logo.png" alt="">
+    </div>
+   </section>
+
+
+   <script>
+        new WOW().init();
+   </script>
+
+
+</body>
+</html>
